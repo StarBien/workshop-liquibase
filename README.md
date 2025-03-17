@@ -2,6 +2,20 @@
 
 Este repositorio es para practicar el uso de liquibase.
 
+## Instalar liquibase
+
+### En Linux/Mac:
+mkdir -p liquibase
+cd liquibase
+wget https://github.com/liquibase/liquibase/releases/download/v4.20.0/liquibase-4.20.0.zip
+unzip liquibase-4.20.0.zip
+chmod +x liquibase
+cd ..
+
+## Ejecutar base de datos local con docker-compose
+
+docker compose up
+
 ## Agregando cambio
 
 El archivo 01_add_duracion_column.sql contiene cambios a nivel de base de datos.
