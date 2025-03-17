@@ -4,6 +4,9 @@ Este repositorio es para practicar el uso de liquibase.
 
 ## Instalar liquibase
 
+### Descargar el driver de PostgreSQL
+wget https://jdbc.postgresql.org/download/postgresql-42.5.1.jar -P lib/
+
 ### En Linux/Mac:
 mkdir -p liquibase
 cd liquibase
