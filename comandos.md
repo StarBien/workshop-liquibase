@@ -23,3 +23,17 @@
 
 # 8. Validar el changelog (útil para CI/CD)
 ./liquibase/liquibase validate
+
+-- Consulta para verificar si la columna duracion_minutos existe y tiene datos
+SELECT id, titulo, director, año_lanzamiento, genero, duracion_minutos
+FROM movies.peliculas;
+
+-- Consulta para verificar los metadatos de la columna
+SELECT column_name, data_type, is_nullable, column_default
+FROM information_schema.columns
+WHERE table_schema = 'movies' AND table_name = 'peliculas' AND column_name = 'duracion_minutos';
+
+-- Consulta para verificar el registro de la migración en la tabla de Liquibase
+SELECT id, author, filename, dateexecuted, description
+FROM databasechangelog
+WHERE id = '01-add-duracion-column';

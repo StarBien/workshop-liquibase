@@ -53,3 +53,30 @@ liquibase history
 ## Ver status
 
 liquibase status --verbose
+
+
+* Si la bd no crea el rol usar el siguiente comando:
+
+docker exec -it liquibase-workshop-db psql -U workshop_user -d movies_db -c "
+CREATE USER liquibase_user WITH PASSWORD 'liquibase_password';
+GRANT USAGE ON SCHEMA movies TO liquibase_user;
+GRANT USAGE ON SCHEMA public TO liquibase_user;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA movies TO liquibase_user;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA movies TO liquibase_user;
+ALTER DEFAULT PRIVILEGES IN SCHEMA movies GRANT ALL ON TABLES TO liquibase_user;
+ALTER DEFAULT PRIVILEGES IN SCHEMA movies GRANT ALL ON SEQUENCES TO liquibase_user;
+"
+
+## Acceder a la BD
+
+docker exec -it liquibase-workshop-db psql -U workshop_user -d movies_db -c "SELECT * FROM movies.peliculas;"
+
+docker exec -it liquibase-workshop-db psql -U liquibase_user -d movies_db -c "\conninfo"
+
+docker exec -it liquibase-workshop-db psql -U liquibase_user -d movies_db -c "SELECT * FROM movies.peliculas;"
+
+## Conexion con liquibase
+
+liquibase status --url=jdbc:postgresql://localhost:5432/movies_db --username=workshop_user --password=workshop_password
+
+liquibase status --url=jdbc:postgresql://localhost:5432/movies_db --username=liquibase_user --password=liquibase_password
