@@ -4,6 +4,13 @@ Este repositorio es para practicar el uso de liquibase.
 
 ## Instalar liquibase
 
+### Package manager
+brew install liquibase
+
+### Postgresql driver package
+brew install libpq
+
+
 ### Descargar el driver de PostgreSQL
 wget https://jdbc.postgresql.org/download/postgresql-42.5.1.jar -P lib/
 
@@ -34,3 +41,15 @@ Para ejecutar estos cambios se necesita agregar lo siguiente al archivo changelo
         </rollback>
     </changeSet>
 ```
+
+## Ejecutar migracion
+
+liquibase update
+
+## Ver historial
+
+liquibase history
+
+## Ver status
+
+liquibase status --verbose
