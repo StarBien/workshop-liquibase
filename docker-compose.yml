@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14
+    container_name: liquibase-workshop-db
+    restart: always
+    environment:
+      POSTGRES_USER: workshop_user
+      POSTGRES_PASSWORD: workshop_password
+      POSTGRES_DB: movies_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+
+  # Opcional: Añadir PgAdmin si deseas una interfaz gráfica
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: liquibase-workshop-pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@workshop.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
